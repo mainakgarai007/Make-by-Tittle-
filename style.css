@@ -1,99 +1,74 @@
-/* --- Global Styles --- */
-
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 body {
-  /* Deep navy, almost black */
-  background: #0c1524;
-  min-height: 100vh;
-  min-width: 100vw;
-  color: #cdfcff;
-  font-family: 'Segoe UI', 'Arial', sans-serif;
-}
-
-.center-wrapper {
-  min-height: 100vh;
-  min-width: 100vw;
+  margin: 0;
+  font-family: sans-serif;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #fff0f5);
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-}
-
-/* --- Scanner Visual --- */
-
-.scanner-frame {
-  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 320px;
-  height: 320px;
-  margin-bottom: 2.6rem;
 }
 
-/* The glowing scanner ring */
-.scanner-circle {
-  fill: none;
-  stroke: #16e0ec;
-  stroke-width: 5.5;
-  filter: url(#glow);
-  opacity: 0.66;
-  /* Soft drop-shadow glow for fallback browsers: */
-  /* filter: drop-shadow(0 0 24px #16e0ecc0); */
+.screen {
+  display: none;
+  text-align: center;
 }
 
-/* --- Heart Icon Animation --- */
-
-.heart-group .heart-icon {
-  fill: #19e5e7;
-  stroke: #63fcfd;
-  stroke-width: 3;
-  filter: drop-shadow(0 0 8px #28f1f380);
-  /* The heart scales via inline transform attribute, animated via JS */
-  transition: filter 0.3s;
+.screen.active {
+  display: block;
 }
 
-/* --- Animated Scan Line --- */
+.heart-btn {
+  background: white;
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+}
+
+.heart-btn span {
+  display: block;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.scanner {
+  width: 180px;
+  height: 180px;
+  border: 4px solid pink;
+  border-radius: 50%;
+  position: relative;
+  font-size: 40px;
+  line-height: 180px;
+}
 
 .scan-line {
-  fill: url(#scanLineGradient), #19e5e7;
-  /* If browser doesn't support SVG gradient, fallback to cyan fill */
-  opacity: 0.68;
-}
-/* --- Status Text Below --- */
-
-.status-text {
-  margin-top: 0.5rem;
-  font-size: 1.22rem;
-  letter-spacing: 0.04em;
-  color: #b8f8fc;
-  text-shadow: 0 0 12px #14eefbc0;
-  min-height: 1.8em;
-  text-align: center;
-  opacity: 1;
-  transition: opacity 0.8s;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: pink;
+  top: 50%;
+  animation: scan 2s linear infinite;
 }
 
-/* --- Responsive for small screens --- */
-@media (max-width:450px) {
-  .scanner-frame {
-    width: 95vw;
-    height: 95vw;
-    max-width: 330px;
-    max-height: 330px;
-  }
-  .scanner-svg {
-    width: 100vw;
-    height: 100vw;
-    max-width: 335px;
-    max-height: 335px;
-  }
+@keyframes scan {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Hide scrollbars for a cleaner look */
-body::-webkit-scrollbar { display: none; }
-body { -ms-overflow-style: none; scrollbar-width: none; }
+.report {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 260px;
+}
+
+.continue {
+  background: pink;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+}
