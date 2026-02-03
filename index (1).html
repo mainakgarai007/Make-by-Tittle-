@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Heart Scanner</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="scanner-interface">
+      <svg class="scanner-svg" width="320" height="320" viewBox="0 0 320 320">
+        <!-- Glowing scanner border -->
+        <circle
+          class="scanner-glow"
+          cx="160" cy="160" r="140"
+          stroke="#22e6eb" stroke-width="6"
+          fill="none" />
+        <!-- Digital Heart Icon (centered) -->
+        <g transform="translate(85,80)">
+          <path
+            class="heart-icon"
+            d="M75.2,36.9c0-11-9.1-20-20.2-20c-5.5,0-10.4,2.2-14,5.9c-3.6-3.7-8.5-5.9-14-5.9c-11.1,0-20.2,9-20.2,20
+              c0,24.7,34.2,38.4,34.2,38.4S75.2,61.5,75.2,36.9z"
+            fill="#0ef2ff" stroke="#42ffff" stroke-width="3" opacity="0.91"/>
+        </g>
+        <!-- Animated scan line -->
+        <rect id="scan-line" x="90" y="60" width="100" height="8" rx="4"
+          fill="url(#scanLineGradient)" opacity="0.77"/>
+        <defs>
+          <linearGradient id="scanLineGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1ffffb" stop-opacity="0.8"/>
+            <stop offset="50%" stop-color="#38e4e0" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#1ffffb" stop-opacity="0.8"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div id="status" class="status-text">
+      Scanning emotions…
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
