@@ -1,61 +1,61 @@
-const s1 = document.getElementById("screen1");
-const s2 = document.getElementById("screen2");
-const s3 = document.getElementById("screen3");
-const s4 = document.getElementById("screen4");
-const status = document.getElementById("statusText");
 const music = document.getElementById("bgMusic");
 
-/* 🎵 play soft music on first interaction */
-document.addEventListener("click", () => {
+/* try autoplay continuously */
+music.volume = 0.25;
+setInterval(() => {
   if (music.paused) {
-    music.volume = 0.25;
     music.play().catch(() => {});
   }
-}, { once: true });
+}, 2000);
 
-/* Screen 1 → 2 */
-document.getElementById("openBtn").onclick = () => {
-  s1.classList.remove("active");
-  s2.classList.add("active");
+/* petals */
+const petals = document.getElementById("petals");
+for (let i = 0; i < 25; i++) {
+  const p = document.createElement("div");
+  p.className = "petal";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = 6 + Math.random() * 6 + "s";
+  petals.appendChild(p);
+}
 
-  const texts = [
-    "Checking smile…",
-    "Measuring cuteness…",
-    "Almost done…"
-  ];
+/* screen flow */
+const screens = n => document.getElementById("screen" + n);
 
+openBtn.onclick = () => {
+  screens(1).classList.remove("active");
+  screens(2).classList.add("active");
+
+  const texts = ["Checking smile…", "Measuring cuteness…", "Almost done…"];
   let i = 0;
+
   const interval = setInterval(() => {
-    status.textContent = texts[i];
-    i++;
+    statusText.textContent = texts[i++];
     if (i === texts.length) {
       clearInterval(interval);
       setTimeout(() => {
-        s2.classList.remove("active");
-        s3.classList.add("active");
-      }, 1000);
+        screens(2).classList.remove("active");
+        screens(3).classList.add("active");
+      }, 800);
     }
-  }, 1500);
+  }, 1200);
 };
 
-/* Screen 3 → 4 */
 document.querySelector(".continue").onclick = () => {
-  s3.classList.remove("active");
-  s4.classList.add("active");
+  screens(3).classList.remove("active");
+  screens(4).classList.add("active");
 };
 
-/* Restart */
-document.getElementById("again").onclick = () => {
-  location.reload();
+more.onclick = () => {
+  screens(4).classList.remove("active");
+  screens(5).classList.add("active");
 };
 
-/* Share */
-document.getElementById("share").onclick = () => {
-  if (navigator.share) {
-    navigator.share({
-      text: "I just got my lovely report 💖"
-    });
-  } else {
-    alert("Sharing not supported on this device");
-  }
+envelope.onclick = () => {
+  screens(5).classList.remove("active");
+  screens(6).classList.add("active");
+};
+
+last.onclick = () => {
+  screens(6).classList.remove("active");
+  screens(7).classList.add("active");
 };
