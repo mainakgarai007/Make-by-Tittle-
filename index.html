@@ -2,44 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Heart Scanner</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Heart Scanner Concept</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="scanner-interface">
-      <svg class="scanner-svg" width="320" height="320" viewBox="0 0 320 320">
-        <!-- Glowing scanner border -->
+  <main class="center-wrapper">
+    <!-- Scanner Visual -->
+    <div class="scanner-frame">
+      <svg class="scanner-svg" viewBox="0 0 320 320" width="320" height="320" aria-hidden="true">
+        <!-- Glowing circular frame -->
         <circle
-          class="scanner-glow"
           cx="160" cy="160" r="140"
-          stroke="#22e6eb" stroke-width="6"
-          fill="none" />
-        <!-- Digital Heart Icon (centered) -->
-        <g transform="translate(85,80)">
+          class="scanner-circle"
+        />
+        <!-- Digital Heart Icon -->
+        <g class="heart-group">
           <path
             class="heart-icon"
-            d="M75.2,36.9c0-11-9.1-20-20.2-20c-5.5,0-10.4,2.2-14,5.9c-3.6-3.7-8.5-5.9-14-5.9c-11.1,0-20.2,9-20.2,20
-              c0,24.7,34.2,38.4,34.2,38.4S75.2,61.5,75.2,36.9z"
-            fill="#0ef2ff" stroke="#42ffff" stroke-width="3" opacity="0.91"/>
+            d="M160 120
+               C160 109 149 100 137 107
+               C131 110 128 117 129 123
+               C131 139 160 164 160 164
+               C160 164 189 139 191 123
+               C192 117 189 110 183 107
+               C171 100 160 109 160 120Z"
+          />
         </g>
-        <!-- Animated scan line -->
-        <rect id="scan-line" x="90" y="60" width="100" height="8" rx="4"
-          fill="url(#scanLineGradient)" opacity="0.77"/>
+        <!-- Vertical scan line -->
+        <rect
+          id="scan-line"
+          x="110" y="60" width="100" height="7" rx="3.5"
+          class="scan-line"
+        />
         <defs>
-          <linearGradient id="scanLineGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1ffffb" stop-opacity="0.8"/>
-            <stop offset="50%" stop-color="#38e4e0" stop-opacity="0.1"/>
-            <stop offset="100%" stop-color="#1ffffb" stop-opacity="0.8"/>
-          </linearGradient>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
       </svg>
     </div>
-    <div id="status" class="status-text">
+    <!-- Status text -->
+    <p id="status" class="status-text">
       Scanning emotions…
-    </div>
-  </div>
+    </p>
+  </main>
   <script src="script.js"></script>
 </body>
 </html>
