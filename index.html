@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Just For You 💖</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" src="love.mp3" loop></audio>
+<!-- Falling petals -->
+<div id="petals"></div>
+
+<!-- Background music -->
+<audio id="bgMusic" src="love.mp3" autoplay loop></audio>
 
 <!-- Screen 1 -->
 <div id="screen1" class="screen active">
@@ -33,7 +36,7 @@
 <div id="screen3" class="screen">
   <div class="report">
     <h3>OFFICIAL REPORT</h3>
-    <small>01 Feb 2026</small>
+    <small>03 Feb 2026</small>
 
     <p><b>SUBJECT:</b> YOU 💖</p>
     <p><b>CUTENESS:</b> UNLIMITED</p>
@@ -48,26 +51,52 @@
 
 <!-- Screen 4 -->
 <div id="screen4" class="screen">
-  <div class="final-note">
-    <h3>💌 Final Note</h3>
+  <h2 class="title">My favorite things about you</h2>
 
+  <div class="cards">
+    <div class="card">Being around you makes even ordinary days feel special.</div>
+    <div class="card">I love how your eyes light up when you talk about things you love.</div>
+    <div class="card">Your laugh is literally my favorite sound in the universe.</div>
+  </div>
+
+  <button id="more">One more thing →</button>
+</div>
+
+<!-- Screen 5 -->
+<div id="screen5" class="screen">
+  <div id="envelope">💌</div>
+  <p>Tap to read letter</p>
+</div>
+
+<!-- Screen 6 -->
+<div id="screen6" class="screen">
+  <div class="letter">
+    <h3>For you,</h3>
     <p>
-      This report is scientifically inaccurate,<br>
-      emotionally biased,<br>
-      and <b>100% honest</b>.
+      I wanted to make something a little different for you,
+      just to remind you how much you mean to me.
+      Thank you for being my person.
     </p>
 
-    <p class="highlight">
-      You’re rare.<br>
-      Don’t let the world tell you otherwise.
-    </p>
-
-    <button id="again">🔁 Scan Again</button>
-    <button id="share">📤 Share</button>
-
-    <small>Made with ❤️ just for you</small>
+    <button id="last">One last thing</button>
   </div>
 </div>
+
+<!-- Screen 7 -->
+<div id="screen7" class="screen">
+  <div class="cute-wrap">
+    <img src="cat.png" alt="cute cat" class="cute-cat">
+    <h2 class="cute-title">You're the best</h2>
+    <p class="cute-sub">Don't ever forget it</p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <a href="mailto:mainakgarai007@gmail.com">
+    mainakgarai007@gmail.com
+  </a>
+</footer>
 
 <script src="script.js"></script>
 </body>
