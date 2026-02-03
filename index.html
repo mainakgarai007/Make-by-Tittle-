@@ -2,55 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Futuristic Heart Scanner Concept</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Just For You 💖</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="center-wrapper">
-    <!-- Scanner Visual -->
-    <div class="scanner-frame">
-      <svg class="scanner-svg" viewBox="0 0 320 320" width="320" height="320" aria-hidden="true">
-        <!-- Glowing circular frame -->
-        <circle
-          cx="160" cy="160" r="140"
-          class="scanner-circle"
-        />
-        <!-- Digital Heart Icon -->
-        <g class="heart-group">
-          <path
-            class="heart-icon"
-            d="M160 120
-               C160 109 149 100 137 107
-               C131 110 128 117 129 123
-               C131 139 160 164 160 164
-               C160 164 189 139 191 123
-               C192 117 189 110 183 107
-               C171 100 160 109 160 120Z"
-          />
-        </g>
-        <!-- Vertical scan line -->
-        <rect
-          id="scan-line"
-          x="110" y="60" width="100" height="7" rx="3.5"
-          class="scan-line"
-        />
-        <defs>
-          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-      </svg>
-    </div>
-    <!-- Status text -->
-    <p id="status" class="status-text">
-      Scanning emotions…
-    </p>
-  </main>
-  <script src="script.js"></script>
+
+<div id="screen1" class="screen active">
+  <h2>Just for you</h2>
+  <button id="openBtn" class="heart-btn">
+    ❤️
+    <span>Tap to open</span>
+  </button>
+</div>
+
+<div id="screen2" class="screen">
+  <div class="scanner">
+    <div class="scan-line"></div>
+    ❤️
+  </div>
+  <p id="statusText">Checking smile…</p>
+</div>
+
+<div id="screen3" class="screen">
+  <div class="report">
+    <h3>OFFICIAL REPORT</h3>
+    <small>01 Feb 2026</small>
+
+    <p><b>ITEM:</b> YOU</p>
+    <p><b>CUTENESS:</b> UNLIMITED</p>
+    <p><b>SWEETNESS:</b> OVERLOAD</p>
+    <p><b>VIBE:</b> PERFECT</p>
+
+    <h2>❤️ TOTAL: 100% LOVELY</h2>
+
+    <button class="continue">Continue →</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
