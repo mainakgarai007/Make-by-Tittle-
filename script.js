@@ -1,72 +1,102 @@
-// Animation parameters
-const scanLine = document.getElementById('scan-line');
-const heart = document.querySelector('.heart-icon');
-const statusEl = document.getElementById('status');
+// ---------------------
+// Heart Scanner Animations
+// ---------------------
 
-// Vertical scan limits (SVG coordinates)
-const scanMin = 80;
-const scanMax = 180;
+// --- Heart Pulse Animation ---
+const heartPath = document.querySelector('.heart-icon');
 
-// Heart pulse parameters
+// Pulse settings
 const pulseMin = 1.0;
-const pulseMax = 1.14;
-const pulseMs = 1640;
+const pulseMax = 1.13; // Peak scale
+const pulsePeriod = 1700; // ms for one pulse (calm, slow)
 
-// Scanner status messages
-const statuses = [
-  "Scanning emotions…",
-  "Analyzing heart signals…",
-  "Assessing rhythm…",
-  "Detecting patterns…",
-  "Scan complete"
-];
-let statusIndex = 0;
-
-// Animate scan line
-function animateScanLine() {
-  let dir = 1; // 1 = down, -1 = up
-  let pos = scanMin;
-  const speed = 0.27; // px per ms
-  let lastTime = null;
-
-  function move(ts) {
-    if (!lastTime) lastTime = ts;
-    const delta = ts - lastTime;
-    pos += dir * speed * delta;
-
-    if (pos >= scanMax) { dir = -1; pos = scanMax; }
-    if (pos <= scanMin) { dir = 1; pos = scanMin; }
-
-    scanLine.setAttribute('y', pos.toFixed(2));
-    lastTime = ts;
-    requestAnimationFrame(move);
-  }
-  requestAnimationFrame(move);
-}
-
-// Animate heart pulsing
 function animateHeartPulse() {
   let start;
   function pulse(ts) {
     if (!start) start = ts;
-    const t = ((ts - start) % pulseMs) / pulseMs;
-    // Smooth pulse using sinusoidal ease
+    // Fraction in [0,1]
+    const t = ((ts - start) % pulsePeriod) / pulsePeriod;
+    // Smooth sinusoidal scaling
     const scale = pulseMin + (pulseMax - pulseMin) * 0.5 * (1 - Math.cos(2 * Math.PI * t));
-    heart.setAttribute('transform', `scale(${scale.toFixed(3)})`);
+    // Set transform directly (origin at the heart center)
+    heartPath.setAttribute("transform", `scale(${scale}) translate(${160/scale-160},${142/scale-142})`);
     requestAnimationFrame(pulse);
   }
   requestAnimationFrame(pulse);
 }
 
-// Status text cycling
-function animateStatus() {
-  setInterval(() => {
-    statusIndex = (statusIndex + 1) % statuses.length;
-    statusEl.textContent = statuses[statusIndex];
-  }, 2200);
+// --- Scan Line Animation ---
+const scanLine = document.getElementById('scan-line');
+// SVG y bounds for scanning
+const scanYMin = 65;    // Top inside ring
+const scanYMax = 205;   // Bottom inside ring
+const scanPeriod = 2600; // ms top to bottom and loop
+
+function animateScanLine() {
+  let start;
+  function scan(ts) {
+    if (!start) start = ts;
+    // Progress from 0 to 1, then loop
+    const t = ((ts - start) % scanPeriod) / scanPeriod;
+    // Animate from top to bottom linearly
+    const y = scanYMin + (scanYMax - scanYMin) * t;
+    scanLine.setAttribute('y', y);
+    requestAnimationFrame(scan);
+  }
+  requestAnimationFrame(scan);
 }
 
-// Start all animations
-animateScanLine();
-animateHeartPulse();
-animateStatus();
+// --- Status Message Animation ---
+const statusEl = document.getElementById('status');
+const statuses = [
+  "Scanning emotions…",
+  "Analyzing heart signals…",
+  "Processing data…",
+  "Scan complete"
+];
+
+let statusIndex = 0;
+let fadeInterval = 3500;
+
+function animateStatus() {
+  setInterval(() => {
+    // Fade out
+    statusEl.style.opacity = 0;
+    setTimeout(() => {
+      // Change text & fade in
+      statusIndex = (statusIndex + 1) % statuses.length;
+      statusEl.textContent = statuses[statusIndex];
+      statusEl.style.opacity = 1;
+    }, 800); // Duration matches CSS transition
+  }, fadeInterval);
+}
+
+// ------------ SVG SCAN LINE GRADIENT ------------
+// (This must be injected when the DOM is ready)
+function insertScanLineGradient() {
+  // Create gradient element
+  const svg = document.querySelector('.scanner-svg');
+  const defs = svg.querySelector('defs') || (function() {
+    const d=document.createElementNS('http://www.w3.org/2000/svg','defs');
+    svg.appendChild(d); return d;
+  })();
+
+  const lg = document.createElementNS('http://www.w3.org/2000/svg','linearGradient');
+  lg.setAttribute('id','scanLineGradient');
+  lg.setAttribute('x1','0'); lg.setAttribute('y1','0');
+  lg.setAttribute('x2','0'); lg.setAttribute('y2','1');
+  lg.innerHTML = `
+    <stop offset="0%"   stop-color="#19e5e7" stop-opacity="0.93"/>
+    <stop offset="41%"  stop-color="#7ef3ec" stop-opacity="0.13"/>
+    <stop offset="100%" stop-color="#19e5e7" stop-opacity="0.93"/>
+  `;
+  defs.appendChild(lg);
+}
+
+// ------------- INIT ALL ANIMATIONS ----------------
+window.addEventListener('DOMContentLoaded', ()=>{
+  insertScanLineGradient();
+  animateHeartPulse();
+  animateScanLine();
+  animateStatus();
+});
